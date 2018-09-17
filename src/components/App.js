@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {database} from '../firebase';
+import _ from 'lodash'
 
 class App extends Component {
   constructor(props){
@@ -7,12 +8,22 @@ class App extends Component {
     //state
     this.state = {
       title: '',
-      body: ''
+      body: '',
+      notes: {}
     };
 
     //bind
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderNotes = this.renderNotes.bind(this);
+  }
+
+  componentDidMount(){
+    database.on('value', snapshot => {
+      this.setState({
+        notes: snapshot.val()
+      });
+    })
   }
 
   // handle change
@@ -35,6 +46,17 @@ class App extends Component {
     })
   }
 
+  renderNotes(){
+    return _.map(this.state.notes, (note, key) => {
+      return (
+        <div key="key">
+          <h2>{note.title}</h2>
+          <p>{note.body}</p>
+        </div>
+      )
+    });
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -52,6 +74,7 @@ class App extends Component {
                             <button className="btn btn-primary col-sm-12">Save</button>
                         </div>
                     </form>
+                    {this.renderNotes()}
                 </div>
           </div>
       </div>
