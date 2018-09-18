@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {database} from '../firebase';
-import _ from 'lodash'
+import _ from 'lodash';
+import {connect} from 'react-redux';
+import {getNotes, saveNote} from '../actions/notesAction';
+
 
 class App extends Component {
   constructor(props){
@@ -8,8 +10,7 @@ class App extends Component {
     //state
     this.state = {
       title: '',
-      body: '',
-      notes: {}
+      body: ''
     };
 
     //bind
@@ -19,11 +20,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    database.on('value', snapshot => {
-      this.setState({
-        notes: snapshot.val()
-      });
-    })
+      this.props.getNotes();
   }
 
   // handle change
@@ -39,7 +36,7 @@ class App extends Component {
       title: this.state.title,
       body: this.state.body
     }
-    database.push(note);
+    this.props.saveNote(note);
     this.setState({
       title: '',
       body: ''
@@ -47,7 +44,7 @@ class App extends Component {
   }
 
   renderNotes(){
-    return _.map(this.state.notes, (note, key) => {
+    return _.map(this.props.notes, (note, key) => {
       return (
         <div key="key">
           <h2>{note.title}</h2>
@@ -82,4 +79,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state, ownProps){
+    return {
+        notes: state.notes
+    }
+}
+
+export default connect(mapStateToProps, {getNotes, saveNote})(App);

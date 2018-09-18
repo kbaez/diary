@@ -13,5 +13,5 @@ export function getNotes() {
 }
 
 export function saveNote(note) {
-    return dispatch => databasse.push(note)
+    return dispatch => database.push(note)
 }

@@ -9,10 +9,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
+import thunk from 'redux-thunk';
 
 
 //create redux store -> reducers -> 'actions'
-const store = createStore(rootReducer, composeWithDevTools()); 
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
     <Provider store={store}>
