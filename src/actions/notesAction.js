@@ -13,5 +13,9 @@ export function getNotes() {
 }
 
 export function saveNote(note) {
-    return dispatch => database.push(note)
+    return dispatch => database.push(note);
+}
+
+export function deleteNote(id) {
+    return dispatch => database.child(id).remove();
 }
