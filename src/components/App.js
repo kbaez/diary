@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 import {getNotes, saveNote, deleteNote} from '../actions/notesAction';
+import NoteCard from './NoteCard';
+import {getUser} from '../actions/userAction';
 
 
 class App extends Component {
@@ -21,6 +23,7 @@ class App extends Component {
 
   componentDidMount(){
       this.props.getNotes();
+      this.props.getUser();
   }
 
   // handle change
@@ -46,11 +49,11 @@ class App extends Component {
   renderNotes(){
     return _.map(this.props.notes, (note, key) => {
       return (
-        <div key="key">
+        <NoteCard key={key}>
           <h2>{note.title}</h2>
           <p>{note.body}</p>
           <button className="btn btn-danger btn-xs" onClick={()=> this.props.deleteNote(key)}>Delete</button>
-        </div>
+        </NoteCard>
       )
     });
   }
@@ -82,8 +85,9 @@ class App extends Component {
 
 function mapStateToProps(state, ownProps){
     return {
-        notes: state.notes
+        notes: state.notes,
+        user: state.user
     }
 }
 
-export default connect(mapStateToProps, {getNotes, saveNote, deleteNote})(App);
+export default connect(mapStateToProps, {getNotes, saveNote, deleteNote, getUser})(App);
