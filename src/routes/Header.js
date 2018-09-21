@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getUser, logout} from '../actions/userAction';
+import {getUser, logOut} from '../actions/userAction';
 
 class Header extends Component{
     render(){
@@ -22,7 +22,7 @@ class Header extends Component{
                                 this.props.user === null ? (
                                     <li><Link to="/login">LOGIN</Link></li>
                                 ):(
-                                    <li><Link to="/logout" onClick={() => this.prop.logout()}>LOGOUT</Link></li>
+                                    <li><Link to="/logout" onClick={this.props.logOut}>LOGOUT</Link></li>
                                 )
                             }
                         </ul>
@@ -39,4 +39,4 @@ function mapStateToProps(state, ownProps){
     }
 }
 
-export default connect(mapStateToProps, {getUser, logout})(Header);
+export default connect(mapStateToProps, {getUser, logOut})(Header);

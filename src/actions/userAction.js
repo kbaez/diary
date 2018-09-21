@@ -16,6 +16,6 @@ export function googleLogin() {
     return dispatch => auth.signInWithPopup(googleProvider);
 }
 
-export function logout() {
+export function logOut() {
     return dispatch => auth.signOut();
 }
