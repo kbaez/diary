@@ -21,10 +21,11 @@ class App extends Component {
     this.renderNotes = this.renderNotes.bind(this);
   }
 
+  /*
   componentDidMount(){
       this.props.getNotes();
       this.props.getUser();
-  }
+  }*/
 
   // handle change
   handleChange(e){

@@ -3,6 +3,7 @@ import {database} from '../firebase'
 
 export function getNotes() {
     return dispatch => {
+        //as soon as this function fires show loading to true
         dispatch({
             type: NOTES_STATUS,
             payload: true
@@ -11,9 +12,20 @@ export function getNotes() {
             dispatch({
                 type: GET_NOTES,
                 payload: snapshot.val()
+            });
+            //once notes are received show loading to false
+            dispatch({
+                type: NOTES_STATUS,
+                payload: false
+            });
+            //wait until something changes and try again
+        }, () => {
+            dispatch({
+                         type: NOTES_STATUS,
+                         payload: -1
             })
-        })
-    }
+        });
+    };
 }
 
 export function saveNote(note) {
