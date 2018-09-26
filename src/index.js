@@ -15,6 +15,7 @@ import Login from './components/Login';
 import Header from './routes/Header';
 import LoadingComponent from './components/LoadingComponent';
 import AuthenticatedComponent from './components/AuthenticatedComponent';
+import NoteDetail from './components/NoteDetail';
 
 //create redux store -> reducers -> 'actions'
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
@@ -24,10 +25,10 @@ ReactDOM.render(
         <BrowserRouter>
         <LoadingComponent>
             <div>
-                <Header/>
                 <Switch>
                     <Route path="/login" component={Login} exact={true}/>
                     <AuthenticatedComponent>
+                        <Header/>
                         <Route path="/" component={App} exact={true}/>
                     </AuthenticatedComponent>
                 </Switch>
