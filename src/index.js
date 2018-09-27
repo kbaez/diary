@@ -30,6 +30,7 @@ ReactDOM.render(
                     <AuthenticatedComponent>
                         <Header/>
                         <Route path="/" component={App} exact={true}/>
+                        <Route path="/:id" component={NoteDetail} exact={true} />
                     </AuthenticatedComponent>
                 </Switch>
             </div>
