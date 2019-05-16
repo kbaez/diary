@@ -17,7 +17,7 @@ class NoteEdit extends Component {
         //bind
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.renderNotes = this.renderNotes.bind(this);
+        //this.renderNotes = this.renderNotes.bind(this);
     }
 
     // handle change
@@ -32,36 +32,13 @@ class NoteEdit extends Component {
         const note = {
             title: this.state.title,
             body: this.state.body,
-            uid: this.props.user.uid
+            uid: this.props.uid
         }
-        this.props.editNote(this.props.match.params.id, note);
+        //this.props.editNote(this.props.match.params.id, note);
         this.setState({
             title: '',
             body: ''
         })
-    }
-
-    renderNotes(){
-        return _.map(this.props.notes, (note, key) => {
-            return (
-                <NoteCard key={key}>
-                    <Link to={`/${key}`}>
-                        <h2>{note.title}</h2>
-                    </Link>
-
-                    <p>{note.body}</p>
-                    {note.uid === this.props.user.uid && (
-                        <div>
-                            <button className="btn btn-danger btn-xs" onClick={()=> this.props.deleteNote(key)}>
-                                Delete
-                            </button>
-                            <button className="btn btn-info btn-xs pull-right"><Link to={`/$key/edit`}>Update</Link>
-                            </button>
-                        </div>
-                    )}
-                </NoteCard>
-            )
-        });
     }
 
     render() {
@@ -80,10 +57,6 @@ class NoteEdit extends Component {
                                 <button className="btn btn-primary col-sm-12">Update</button>
                             </div>
                         </form>
-                        <br />
-                        <br />
-                        <br />
-                        {this.renderNotes()}
                     </div>
                 </div>
             </div>
